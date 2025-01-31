@@ -6,7 +6,14 @@ let tentativas = 1;
 function exibirTextoNaTela(tag, texto) {
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
-    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2});
+    if('speechSynthesis' in window) {
+        let ulterrance = new SpeechSynthesisUlterrance(texto);
+        ulterrance.lang = 'pt-BR';
+        ulterrance.rate = 1.2;
+        window.speechSynthesis.speak(ulterrance);
+    } else {
+        console.log('Web Speach não suportado nesse navegador.');
+    }
 }
 
 function exibirMensagemInicial() {
